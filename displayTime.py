@@ -1,10 +1,8 @@
 from sense_hat import SenseHat
 from datetime import datetime
+from time import sleep
 
 sense = SenseHat()
-#dTime = str(datetime.now()).split(" ")[1].split(".")[0]
-#print(dTime)
-#sense.show_message(dTime)
 
 blue = (0, 0, 255)
 
@@ -69,7 +67,12 @@ def setSeconds(ss=0):
     if(ones[0] == "1"):
         sense.set_pixel(7,4,blue)
 
-setHours(10)
-setMinutes(37)
-setSeconds(49)
-#sense.clear()
+while True:
+    sense.clear()
+    dTime = str(datetime.now()).split(" ")[1].split(".")[0].split(":")
+    print(dTime)
+    setHours(dTime[0])
+    setMinutes(dTime[1])
+    setSeconds(dTime[2])
+    sleep(1)
+
