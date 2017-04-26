@@ -6,6 +6,9 @@ sense = SenseHat()
 
 blue = (0, 0, 255)
 
+def getTime():
+    return str(datetime.now()).split(" ")[1].split(".")[0].split(":")
+
 def setHours(hh=0):
     #hh 10s place
     tens = '{0:02b}'.format(int(str(hh)[0]))
@@ -67,9 +70,15 @@ def setSeconds(ss=0):
     if(ones[0] == "1"):
         sense.set_pixel(7,4,blue)
 
+white = (255,255,255)
 while True:
     sense.clear()
-    dTime = str(datetime.now()).split(" ")[1].split(".")[0].split(":")
+    x = 0
+    while x < 8:
+        sense.set_pixel(2,x,white)
+        sense.set_pixel(5,x,white)
+        x+=1
+    dTime = getTime()
     print(dTime)
     setHours(dTime[0])
     setMinutes(dTime[1])
