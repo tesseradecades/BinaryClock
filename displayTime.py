@@ -1,3 +1,5 @@
+__author__ = "Nathan Evans"
+
 from sense_hat import SenseHat
 from datetime import datetime
 from time import sleep
@@ -9,45 +11,81 @@ blue = (0, 0, 255)
 def getTime():
     return str(datetime.now()).split(" ")[1].split(".")[0].split(":")
 
+"""
+Sets the pixels for the hour
+
+hh - integer representation of the hour to be set
+
+"""
 def setHours(hh=0):
     #hh 10s place
-    tens = '{0:02b}'.format(int(str(hh)[0]))
-    if(tens[1] == "1"):
-        sense.set_pixel(0,7,blue)
-    if(tens[0] == "1"):
-        sense.set_pixel(0,6,blue)
+    tens = '{0:03b}'.format(int(str(hh)[0]))
+    setTens(tens,0)
 
     #hh 1s place
     ones = '{0:04b}'.format(int(str(hh)[1]))
-    for i in range(4):
-        if(ones[i] == "1"):
-            sense.set_pixel(1,4+i,blue)
+    setOnes(ones, 1)
 
+(":")
+
+"""
+Sets the pixels for the minute
+
+mm - integer representation of the minute to be set
+
+"""
 def setMinutes(mm=0):
     #mm 10s place
     tens = '{0:03b}'.format(int(str(mm)[0]))
-    for y in range(3):
-        if(tens[y] == "1"):
-            sense.set_pixel(3, 5+y, blue)
+    setTens(tens, 3)
 
     #mm 1s place
     ones = '{0:04b}'.format(int(str(mm)[1]))
-    for i in range(4):
-        if(ones[i] == "1"):
-            sense.set_pixel(4,4+i,blue)
+    setOnes(ones, 4)
 
+"""
+Sets the pixels for the second
+
+ss - integer representation of the second to be set
+
+"""
 def setSeconds(ss=0):
     #ss 10s place
     tens = '{0:03b}'.format(int(str(ss)[0]))
-    for y in range(3):
-        if(tens[y] == "1"):
-            sense.set_pixel(6, 5+y, blue)
-
-     #ss 1s place
+    setTens(tens,6)
+    
+    #ss 1s place
     ones = '{0:04b}'.format(int(str(ss)[1]))
+    setOnes(ones, 7)
+
+
+"""
+Sets the appropriate pixels for the ones column of the number entered
+
+oneString - A binary representation of the number belonging in the ones column
+    ex)"1001" = 8
+
+pixelColumn - the column value of the pixels used to represent the ones place
+    seconds -> 7, minutes -> 4, hours -> 1
+"""
+def setOnes(oneString="",pixelColumn=0):
     for i in range(4):
-        if(ones[i] == "1"):
-            sense.set_pixel(7,4+i,blue)
+        if(oneString[i] == "1"):
+            sense.set_pixel(pixelColumn, 4+i, blue)
+
+"""
+Sets the appropriate pixels for the ones column of the number entered
+
+oneString - A binary representation of the number belonging in the ones column
+    ex)"1001" = 8
+
+pixelColumn - the column value of the pixels used to represent the ones place
+    seconds -> 6, minutes -> 3, hours -> 0
+"""
+def setTens(tenString="", pixelColumn=0):
+    for i in range(3):
+        if(tenString[i] == "1"):
+            sense.set_pixel(pixelColumn,5+i, blue)
 
 white = (255,255,255)
 while True:
