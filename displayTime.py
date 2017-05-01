@@ -6,14 +6,19 @@ from time import sleep
 
 sense = SenseHat()
 
-white = (255,255,255)
-red = (255,0,0)
-orange = (255, 125, 0)
-yellow = (255,255,0)
-green = (0,255,0)
-blue = (0, 0, 255)
-purple = (125, 0, 255)
 auto=1
+color = colors['blue']
+dtime=0
+
+colors={
+'white' : (255,255,255),
+'red' : (255,0,0),
+'orange' : (255, 125, 0),
+'yellow' : (255,255,0),
+'green' : (0,255,0),
+'blue' : (0, 0, 255),
+'purple' : (125, 0, 255)
+}
 
 
 """
@@ -31,7 +36,9 @@ getTime
 get the current time and format it appropriately 
 """
 def getTime():
-    return str(datetime.now()).split(" ")[1].split(".")[0].split(":")
+	dtime=str(datetime.now()).split(" ")[1].split(".")[0].split(":")
+	print(dTime)
+    return dtime
 
 
 """
@@ -124,7 +131,7 @@ def setOnes(num="",pixelColumn=0):
     oneString = getOnes(num)
     for i in range(4):
         if(oneString[i] == "1"):
-            sense.set_pixel(pixelColumn, 4+i, blue)
+            sense.set_pixel(pixelColumn, 4+i, color)
 
 
 """
@@ -141,8 +148,14 @@ def setTens(num="", pixelColumn=0):
     tenString = getTens(num)
     for i in range(3):
         if(tenString[i] == "1"):
-            sense.set_pixel(pixelColumn,5+i, blue)
+            sense.set_pixel(pixelColumn,5+i, color)
 
+
+def setTime():
+
+	setHours(dTime[0])
+	setMinutes(dTime[1])
+	setSeconds(dTime[2])
 
 """
 main
@@ -157,11 +170,8 @@ def main():
 			sense.set_pixel(2,x,white)
 			sense.set_pixel(5,x,white)
 			x+=1
-		dTime = getTime()
-		print(dTime)
-		setHours(dTime[0])
-		setMinutes(dTime[1])
-		setSeconds(dTime[2])
+		dTime=getTime()
+		setTime()
 		sleep(1)
 
 main()
