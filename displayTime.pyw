@@ -5,8 +5,6 @@ from datetime import datetime
 from time import sleep
 
 sense = SenseHat()
-color = colors['blue']
-
 
 colors={
 'white' : (255,255,255),
@@ -18,6 +16,7 @@ colors={
 'purple' : (125, 0, 255)
 }
 
+color = colors['blue']
 
 """
 getTime
