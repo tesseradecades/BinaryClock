@@ -1,6 +1,6 @@
 __author__ = "Matthew Dunn"
 
-from Tkinter import *
+from tkinter import *
 from copy import deepcopy
 from datetime import datetime
 from time import sleep
@@ -18,7 +18,7 @@ currentdisplaytime=StringVar() #create a string variable to use in the UI
 currentdisplaytime.set("00:00:00") #set to arbitrary placeholder default value
 
 displaytime=StringVar()#create a string variable to use in the UI
-displaytime.set(deepcopy(currentdisplaytime)) #set to a copy of the current display time
+displaytime.set("00:00:00") #set to a copy of the current display time
 
 displayhour=StringVar()#create a string variable to use in the UI
 displayhour.set("00") #set to arbitrary placeholder default value

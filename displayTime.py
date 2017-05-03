@@ -5,8 +5,6 @@ from datetime import datetime
 from time import sleep
 
 sense = SenseHat()
-color = colors['blue']
-
 
 colors={
 'white' : (255,255,255),
@@ -17,7 +15,7 @@ colors={
 'blue' : (0, 0, 255),
 'purple' : (125, 0, 255)
 }
-
+color = colors['blue']
 
 """
 getTime
@@ -25,10 +23,7 @@ getTime
 get the current time and format it appropriately 
 """
 def getTime():
-	currenttime=str(datetime.now()).split(" ")[1].split(".")[0].split(":")
-	print(currentTime)
-    return currenttime
-
+    return str(datetime.now()).split(" ")[1].split(".")[0].split(":")
 
 """
 getOnes
@@ -147,8 +142,8 @@ def updateSenseDisplay(time):
     sense.clear()
     x = 0
     while x < 8:
-        sense.set_pixel(2,x,white)
-        sense.set_pixel(5,x,white)
+        sense.set_pixel(2,x,colors["white"])
+        sense.set_pixel(5,x,colors["white"])
         x+=1
     setHours(time[0])
     setMinutes(time[1])
