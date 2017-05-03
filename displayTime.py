@@ -6,24 +6,16 @@ from time import sleep
 
 sense = SenseHat()
 
-white = (255,255,255)
-red = (255,0,0)
-orange = (255, 125, 0)
-yellow = (255,255,0)
-green = (0,255,0)
-blue = (0, 0, 255)
-purple = (125, 0, 255)
-auto=1
-
-
-"""
-toggleAuto
-
-turn auto incrementation on or off
-"""
-def toggleAuto():
-	auto=!auto
-
+colors={
+'white' : (255,255,255),
+'red' : (255,0,0),
+'orange' : (255, 125, 0),
+'yellow' : (255,255,0),
+'green' : (0,255,0),
+'blue' : (0, 0, 255),
+'purple' : (125, 0, 255)
+}
+color = colors['blue']
 
 """
 getTime
@@ -32,7 +24,6 @@ get the current time and format it appropriately
 """
 def getTime():
     return str(datetime.now()).split(" ")[1].split(".")[0].split(":")
-
 
 """
 getOnes
@@ -124,7 +115,7 @@ def setOnes(num="",pixelColumn=0):
     oneString = getOnes(num)
     for i in range(4):
         if(oneString[i] == "1"):
-            sense.set_pixel(pixelColumn, 4+i, blue)
+            sense.set_pixel(pixelColumn, 4+i, color)
 
 
 """
@@ -141,28 +132,19 @@ def setTens(num="", pixelColumn=0):
     tenString = getTens(num)
     for i in range(3):
         if(tenString[i] == "1"):
-            sense.set_pixel(pixelColumn,5+i, blue)
+            sense.set_pixel(pixelColumn,5+i, color)
 
 
 """
-main
-
-runs the main loop of the program
+updateSenseDisplay
 """
-def main():
-	while auto==1:
-		sense.clear()
-		x = 0
-		while x < 8:
-			sense.set_pixel(2,x,white)
-			sense.set_pixel(5,x,white)
-			x+=1
-		dTime = getTime()
-		print(dTime)
-		setHours(dTime[0])
-		setMinutes(dTime[1])
-		setSeconds(dTime[2])
-		sleep(1)
-
-main()
-
+def updateSenseDisplay(time):
+    sense.clear()
+    x = 0
+    while x < 8:
+        sense.set_pixel(2,x,colors["white"])
+        sense.set_pixel(5,x,colors["white"])
+        x+=1
+    setHours(time[0])
+    setMinutes(time[1])
+    setSeconds(time[2])
